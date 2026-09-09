@@ -3,6 +3,7 @@ import { HealthModule } from './health.module.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(HealthModule);
+  app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();
