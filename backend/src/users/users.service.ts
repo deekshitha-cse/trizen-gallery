@@ -4,16 +4,16 @@ import { UserRole } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
   async findByEmail(email: string) {
-    return this.prisma.user.findUnique({
+    return this.prismaService.user.findUnique({
       where: {
         email,
       },
     });
   }
   async findById(id:string) {
-    return this.prisma.user.findUnique({
+    return this.prismaService.user.findUnique({
       where: {
         id,
       },
@@ -25,7 +25,7 @@ export class UsersService {
     passwordHash: string;
     role: UserRole;
   }) {
-    return this.prisma.user.create({
+    return this.prismaService.user.create({
       data,
     });
   }

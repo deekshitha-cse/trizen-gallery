@@ -4,7 +4,7 @@ import { PrismaService } from "../prisma/prisma.service.js";
 import { UsersService } from "./users.service.js";
 
 describe("UserService", () => {
-    let service: UsersService;
+    let userService: UsersService;
 
     const prismaMock = {
         user: {
@@ -24,7 +24,7 @@ describe("UserService", () => {
             ],
         }).compile();
         
-        service = module.get<UsersService>(UsersService);
+        userService = module.get<UsersService>(UsersService);
     });
 
     it("should find a user by email", async () => {
@@ -38,7 +38,7 @@ describe("UserService", () => {
         };
 
         prismaMock.user.findUnique.mockResolvedValue(user);
-        const result = await service.findByEmail("test@example.com");
+        const result = await userService.findByEmail("test@example.com");
         expect(result).toEqual(user);
         expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
             where:{
@@ -58,7 +58,7 @@ describe("UserService", () => {
         };
 
         prismaMock.user.findUnique.mockResolvedValue(user);
-        const result = await service.findById("1");
+        const result = await userService.findById("1");
         expect(result).toEqual(user);
         expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
             where:{
@@ -85,7 +85,7 @@ describe("UserService", () => {
         }
 
         prismaMock.user.create.mockResolvedValue(user);
-        const result = await service.create(data);
+        const result = await userService.create(data);
         expect(result).toEqual(user);
         expect(prismaMock.user.create).toHaveBeenCalledWith({
             data,
