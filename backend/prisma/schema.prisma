@@ -18,4 +18,15 @@ model User {
   passwordHash String
   role UserRole
   createdAt DateTime @default(now())
+
+  events Event[]
+}
+
+model Event {
+  id String @id @default(uuid())
+  name String
+  description String?
+  createdById String
+  createdBy User @relation(fields: [createdById], references: [id])
+  createdAt DateTime @default(now())
 }

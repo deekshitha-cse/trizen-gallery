@@ -20,7 +20,7 @@ export class UsersService {
     });
   }
   async create(data:{
-    name:string;
+    name: string;
     email: string;
     passwordHash: string;
     role: UserRole;
