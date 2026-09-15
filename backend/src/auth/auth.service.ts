@@ -4,6 +4,9 @@ import { LoginDto } from "./dto/login.dto.js";
 import { UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
+import { RegisterDto } from "./dto/register.dto.js";
+import { PrismaService } from "../prisma/prisma.service.js";
+import { UserRole } from "@prisma/client";
 
 @Injectable()
 export class AuthService{
@@ -28,5 +31,15 @@ export class AuthService{
         });
 
         return { token };
+    }
+
+    async register(registerDto: RegisterDto) {
+        const passwordHash = await bcrypt.hash(registerDto.password, 10);
+        return this.usersService.create({
+            name: registerDto.name,
+            email: registerDto.email,
+            passwordHash,
+            role: UserRole.ADMIN,
+        });
     }
 }
